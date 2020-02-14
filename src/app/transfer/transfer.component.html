@@ -1,0 +1,140 @@
+<!-- <app-loader  *ngIf="loading"></app-loader> -->
+<div>
+  <div class="row">
+    <div class="col-12 py-2">
+      <h2 class="py-2 title">Transferência</h2>
+    </div>
+  </div>
+  <div class="row justify-content-md-center">
+    <div class="col-10 py-2 justify-content-md-center form-transfer">
+      <div class="row justify-content-center mt-3">       
+        <div class="form-check pr-2">
+          <input #ship class="form-check-input"  type="radio" name="exampleRadios" id="Radios1" value="option1" checked>
+          <label class="form-check-label" for="exampleRadios1">
+            Mesmo Banco
+          </label>         
+          
+          <form *ngIf="ship.checked" class="form-inline">
+            <div class="form-group mx-sm-3 mb-2">
+              <label for="inputPassword2" class="sr-only">Conta</label>
+              <input type="text" [(ngModel)]="numeroConta" class="form-control" id="inputPassword2" placeholder="conta" name="conta">
+            </div>           
+            <button type="button" (click)="buscaDadosConta(numeroConta)" class="btn btn-primary mb-2">Confirmar</button>
+          </form>
+        </div>
+
+        <div  class="form-check pr-3 ">
+          <input class="form-check-input" type="radio" name="exampleRadios" id="Radios2" value="option2">
+          <label class="form-check-label" for="exampleRadios2">
+            Outro Banco
+          </label>
+        </div>
+      </div>
+      <hr>
+      <!-- PRIMEIRA ETAPA DO FORMULARIO -->
+      <form *ngIf="show" #f="ngForm" (ngSubmit)="onSubmit(f)"class="justify-content-center p-4">
+        <div class="row">
+          <div class="col-lg-6">
+            <div class="form-group" [ngClass]="aplicaCssErro(nome)">
+              <label for="nome">Nome</label>
+              <input type="nome" class="form-control" name="userName" id="nome"
+              placeholder="Digite o Nome" [(ngModel)]="usuario.userName" required #nome="ngModel">
+              <div *ngIf="!nome.valid && nome.touched" 
+              class="alert alert-danger" role="alert"> Nome é obrigatório</div>
+
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <div class="form-group"  [ngClass]="aplicaCssErro(cpf)">
+              <label for="cpf">CPF</label>
+              <input type="cpf" class="form-control" name="cpf" id="cpf"
+              placeholder="Digite o CPF" [(ngModel)]="usuario.cpf" required #cpf="ngModel"
+              onkeypress="if (!isNaN(String.fromCharCode(window.event.keyCode))) return true; else return false;" >     
+
+              <div *ngIf="!cpf.valid && cpf.touched" 
+              class="alert alert-danger" role="alert"> Cpf é obrigatório</div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-12">  
+            <div class="form-group" [ngClass]="aplicaCssErro(banco)">
+              <label for="banco">Banco</label>
+              <input type="banco" class="form-control" name="banckCode" id="banco"
+              placeholder="Digite o Banco" [(ngModel)]="usuario.banckCode"
+              required #banco="ngModel" type="text" maxlength="3" 
+              onkeypress="if (!isNaN(String.fromCharCode(window.event.keyCode))) return true; else return false;">
+
+              <div *ngIf="!banco.valid && banco.touched" 
+              class="alert alert-danger" role="alert">Banco é obrigatório</div>
+
+            </div>    
+          </div>
+        </div>     
+        <div class="row">
+          <div class="col-lg-6">
+            <div class="form-group">
+              <label for="agencia">Agência</label>
+              <input type="agencia" class="form-control" name="agency" id="agency"  
+              placeholder="Digite a Agência" [(ngModel)]="usuario.agency" 
+              required agencia #agencia="ngModel" maxlength="4" onkeypress="if 
+              (!isNaN(String.fromCharCode(window.event.keyCode))) return true; else return false;">
+
+              <div *ngIf="!agencia.valid && agencia.touched" 
+              class="alert alert-danger" role="alert"> Agência é obrigatório</div>
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <div class="form-group"  [ngClass]="aplicaCssErro(conta)">
+              <label for="conta">Conta</label>
+              <input type="conta" class="form-control" name="accountNumber" id="accountNumber"  
+              placeholder="Digite a Conta" [(ngModel)]="usuario.accountNumber" required 
+              conta #conta="ngModel" maxlength="8" onkeypress="if 
+              (!isNaN(String.fromCharCode(window.event.keyCode))) return true; else return false;">
+
+              <div *ngIf="!conta.valid && conta.touched" 
+              class="alert alert-danger" role="alert"> Conta é obrigatório</div>
+            </div>
+          </div>
+        </div>  
+        <button  type="submit" class="btn btn btn btn-outline-info mb-4 float-right" [disabled]="!f.valid">
+          Continuar
+        </button>
+      </form> 
+      <!-- SEGUNDA ETAPA DO FORMULARIO -->
+      <form *ngIf="!show" #f="ngForm" (ngSubmit)="onConfirm(f)"> 
+        <div class="form-group" [ngClass]="aplicaCssErro(valor)">
+          <label for="valor">Valor</label>
+          <input type="valor" currencyMask [options]="{ prefix: 'R$ ', thousands: '.', decimal: ','}" class="form-control" id="valor" 
+          placeholder="Digite o Valor" name="transferValue"
+          [(ngModel)]="usuario.transferValue" required #valor="ngModel">
+
+          <div *ngIf="!valor.valid && valor.touched" 
+          class="alert alert-danger" role="alert">Valor é obrigatório</div>
+        </div>
+        <div class="form-group" [ngClass]="aplicaCssErro(tipo)">
+          <label for="inputState">Tipo de Transferência</label>
+          <select id="inputState" class="form-control"id="tipo"
+            [(ngModel)]="usuario.transferType" required #tipo="ngModel" name="transferType"  placeholder="DOC / TED">
+            <option selected>DOC</option>
+            <option>TED</option>
+          </select>
+
+          <div *ngIf="!tipo.valid && tipo.touched" 
+          class="alert alert-danger" role="alert">Tipo de transferência é obrigatório</div>
+        </div>
+        <div class="form-group" [ngClass]="aplicaCssErro(historico)">
+          <label for="historico">Histórico</label>
+          <input type="historico" class="form-control" id="historico"
+            placeholder="Digite o Histórico" name="description"
+            [(ngModel)]="usuario.description" required #historico="ngModel">
+
+            <div *ngIf="!historico.valid && historico.touched" 
+            class="alert alert-danger" role="alert">Histórico é obrigatório</div>
+        </div>
+        <button class="btn btn btn-outline-info mb-4 float-right" type="submit" [disabled]="!f.valid">Continuar</button>
+      </form>        
+    </div>
+  </div> 
+</div>
+

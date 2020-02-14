@@ -1,0 +1,21 @@
+<app-loader  *ngIf="loading"></app-loader>
+<div *ngIf="!loading">
+      <div class="row">
+        <div class="col-12 py-2">
+          <h2 class="py-2 title">Detalhes da operação</h2>
+        </div>
+      </div>
+      <div class="row justify-content-md-center">
+        <div class="col-10 py-2 justify-content-md-center">
+            <p>Data: <strong>{{ transation.transactionDate | date: 'dd/MM/yyyy' }}</strong></p><hr>
+            <p>Valor: <strong  [ngClass]="transation.transferValue > 0 ? 'green' : 'red'">{{ transation.transferValue | currency: 'BRL' }}</strong></p><hr>
+            <p>Descrição: <strong>{{ transation.description }}</strong></p><hr>
+            <p>Banco: <strong>{{ transation.bankCode }}</strong></p><hr>
+            <p>Agência: <strong>{{ transation.agency }}</strong></p><hr>
+            <p>Conta: <strong>{{ transation.accountNumber }}</strong></p><hr> 
+            <p>Titular da conta: <strong>{{ transation.userName }}</strong></p><hr>   
+            <button type="button" class="btn btn-outline-secondary" routerLink="/extract">Voltar</button>         
+        </div>
+    </div> 
+  </div>
+

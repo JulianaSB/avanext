@@ -1,0 +1,48 @@
+<nav class="navbar navbar-light bg-light">    
+    <a class="navbar-brand cor-texto" href="#">
+        <img src="../../assets/img/logotipo.svg" width="30" height="30" class="d-inline-block align-top" alt="">
+        Avanext
+    </a>        
+    <button class="navbar-toggler mb-2 hidden-desktop" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div *ngIf="isLogged()">
+        <div class="collapse navbar-collapse hidden-desktop" id="navbarTogglerDemo01">
+            <hr>
+            <a class="navbar-brand" routerLink="/home">Home</a><hr>
+            <a class="navbar-brand" routerLink="/transfer">Transferência</a><hr>
+            <a class="navbar-brand" routerLink="/extract">Extrato</a><hr>
+            <a class="navbar-brand flip-card">
+                <div class="flip-card-inner">
+                  <div class="flip-card-front">                  
+                      Saldo
+                  </div>
+                  <div class="flip-card-back">
+                    {{ balance?.bankBalance | currency: 'BRL' }}
+                  </div>
+                </div>
+            </a>
+            <hr>
+        </div>
+    </div>
+   
+    <div class="col-sm-12 col-md-4">
+        <form *ngIf="!cpfValid; else showCpf" class="form-inline" #form="ngForm" (ngSubmit)="confirmCpf(form.form)">
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text cor-texto" id="cpf">CPF</span>
+                </div>
+                <input type="text" class="form-control" [value]="cpf" (keyup)="validaCpf($event)" placeholder="Somente números" aria-label="CPF" aria-describedby="cpf" [textMask]="{mask: mask}" required>
+            </div>
+            <button type="submit" class="btn btn-outline-secondary mx-2 cor-texto">Acessar</button>
+        </form>
+        <ng-template #showCpf>
+            <span class="navbar-brand">
+                <small>
+                    CPF: {{ cpf }} | 
+                    {{ date | date: 'fullDate' }}
+                </small>
+            </span>
+        </ng-template>
+    </div>
+</nav>

@@ -1,0 +1,33 @@
+.page-footer {
+    width: 100%;
+    background-color: #555971;
+    
+    h6 {
+        color: #fff;
+    }
+    li {
+        list-style: none;
+        line-height: 3;
+    }
+}
+
+.row {
+    justify-content: space-evenly;
+}
+
+.white-text {
+    text-align: center;
+    color: #fff;
+
+    p {
+        width: 50%;
+    }
+
+}
+.footer-copyright {
+    align-items: center;
+    text-align: center;
+    display: flex;
+    color: #fff;
+    font-size: 12px;
+}

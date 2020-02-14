@@ -1,0 +1,38 @@
+/* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css?family=Bitter&display=swap');
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+@import "~bootstrap/dist/css/bootstrap.css";
+
+.material-icons.md-18 { font-size: 18px; }
+.material-icons.md-24 { font-size: 24px; }
+.material-icons.md-36 { font-size: 36px; }
+.material-icons.md-48 { font-size: 48px; }
+.material-icons.md-80 { font-size: 80px; }
+.material-icons.md-120 { font-size: 120px; }
+.material-icons.md-150 { font-size: 150px; }
+
+body { font-family: 'Bitter', serif; }
+
+.title { color: #7b7e79; }
+
+.material-icons.orange { color: #fff; &:hover { cursor: pointer; } }
+
+.green {
+    color: green;
+}
+
+.red {
+    color: red;
+}
+
+@media (max-width: 768px) {
+    .hidden-mobile {
+        display: none;
+    }
+}
+
+@media (min-width: 768px) {
+    .hidden-desktop {
+        display: none;
+    }
+}
